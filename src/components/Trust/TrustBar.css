@@ -1,0 +1,260 @@
+/* Trust Bar 组件样式 - 现代UI设计规范 */
+.trust-bar {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.trust-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e2e8f0" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.trust-bar .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* 标题区域 */
+.trust-section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.trust-main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.trust-subtitle {
+  font-size: 1.125rem;
+  color: #64748b;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* 卡片容器 - 水平对齐布局 */
+.trust-content {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 32px;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 卡片包装器 - 确保等高对齐 */
+.trust-card-wrapper {
+  flex: 1;
+  min-width: 320px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 卡片基础样式 */
+.trust-card {
+  height: 100%;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.trust-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.trust-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.trust-card:hover::before {
+  opacity: 1;
+}
+
+/* 卡片内容布局 */
+.trust-card .ant-card-body {
+  padding: 32px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 卡片头部 */
+.card-premium-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.header-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.header-badge.gold {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.header-badge.service {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.header-stats {
+  text-align: right;
+}
+
+.main-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.stats-label {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* 卡片内容区域 */
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+/* 卡片底部 */
+.card-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.trust-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.trust-icon {
+  color: #3b82f6;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .trust-content {
+    gap: 24px;
+  }
+  
+  .trust-card-wrapper {
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trust-bar {
+    padding: 60px 0;
+  }
+  
+  .trust-main-title {
+    font-size: 2rem;
+  }
+  
+  .trust-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .trust-card-wrapper {
+    min-width: unset;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .trust-card .ant-card-body {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trust-section-header {
+    margin-bottom: 40px;
+  }
+  
+  .trust-main-title {
+    font-size: 1.75rem;
+  }
+  
+  .trust-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* 浏览器兼容性 */
+@supports not (backdrop-filter: blur(10px)) {
+  .trust-card {
+    background: #ffffff;
+  }
+}
+
+@supports not (background-clip: text) {
+  .trust-main-title {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: unset;
+    color: #1e293b;
+  }
+}
