@@ -1,89 +1,27 @@
-# 依赖
-/node_modules
-/.pnp
-.pnp.js
-
-# 测试
-/coverage
-
-# 生产构建
-/build
-/dist
-
-# 环境变量
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# 日志
+# 依赖目录
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# 运行时数据
-pids
-*.pid
-*.seed
-*.pid.lock
+# 构建输出
+dist/
+build/
+.vite/
+.next/
+out/
 
-# 目录为运行时创建
-.nyc_output
+# 本地环境文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Grunt 中级存储 (https://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
-
-# Bower依赖目录 (https://bower.io/)
-bower_components
-
-# node-waf 配置
-.lock-wscript
-
-# 编译的二进制插件 (https://nodejs.org/api/addons.html)
-build/Release
-
-# 依赖目录
-# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
-node_modules/
-jspm_packages/
-
-# Snowpack依赖目录 (https://snowpack.dev/)
-web_modules/
-
-# TypeScript 缓存
-*.tsbuildinfo
-
-# 可选的npm缓存目录
-.npm
-
-# 可选的eslint缓存
-.eslintcache
-
-# Microbundle缓存
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# 可选的REPL历史
-.node_repl_history
-
-# yarn v2的输出
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-
-# IDE 配置文件
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# 日志文件
+*.log
 
 # 操作系统生成的文件
 .DS_Store
@@ -94,28 +32,55 @@ web_modules/
 ehthumbs.db
 Thumbs.db
 
+# IDE 和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
 # 临时文件
 *.tmp
 *.temp
 
-# 日志文件
-*.log
-
-# 备份文件
-*.bak
-*.backup
-
-# 缓存文件
+# 缓存
 .cache/
 .parcel-cache/
+.nuxt/
+.vuepress/dist
 
-# Vite
-.vite
+# 覆盖率报告
+coverage/
+*.lcov
 
-# 测试文件（可选）
-test-api-connection.html
-api-check-result.txt
+# ESLint 缓存
+.eslintcache
 
-# 项目特定的临时文件
-*.md.backup
-*-backup.*
+# TypeScript 缓存
+*.tsbuildinfo
+
+# 可选的 npm 缓存目录
+.npm
+
+# 可选的 REPL 历史
+.node_repl_history
+
+# 输出的包
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# 可选的 yarn v2 文件
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# 测试文件
+test-results/
+playwright-report/
+
+# 其他
+.turbo
