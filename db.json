@@ -1,0 +1,931 @@
+{
+  "home": {
+    "banners": [
+      {
+        "id": 1,
+        "title": "可靠的0#柴油供应自1990年",
+        "subtitle": "第三代家族企业 • 当日配送 • 持证危化品经营商",
+        "image": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+        "mobileImage": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "ctaText": "立即询价",
+        "ctaLink": "/contact",
+        "order": 1,
+        "status": "active"
+      },
+      {
+        "id": 2,
+        "title": "专业危化品运输资质",
+        "subtitle": "24小时应急响应 • 全国服务网络 • 安全可靠",
+        "image": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+        "mobileImage": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "ctaText": "服务网络",
+        "ctaLink": "/about",
+        "order": 2,
+        "status": "active"
+      },
+      {
+        "id": 3,
+        "title": "ISO认证企业",
+        "subtitle": "ISO 9001 • ISO 14001 • OHSAS 18001 • 全面质量保障",
+        "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+        "mobileImage": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "ctaText": "了解资质",
+        "ctaLink": "/safety",
+        "order": 3,
+        "status": "active"
+      }
+    ],
+    "autoPlay": true,
+    "interval": 5000
+  },
+  "company-stats": {
+    "certifications": {
+      "count": "3+",
+      "items": [
+        {
+          "type": "ISO",
+          "number": "9001",
+          "name": "质量管理",
+          "status": "有效",
+          "expireDate": "2025-12-31"
+        },
+        {
+          "type": "ISO",
+          "number": "14001",
+          "name": "环境管理",
+          "status": "有效",
+          "expireDate": "2026-03-20"
+        },
+        {
+          "type": "OHSAS",
+          "number": "18001",
+          "name": "职业健康安全",
+          "status": "有效",
+          "expireDate": "2025-08-15"
+        }
+      ]
+    },
+    "partners": {
+      "count": "500+",
+      "majorClients": [
+        {
+          "name": "中石化",
+          "category": "物流集团",
+          "logo": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop"
+        },
+        {
+          "name": "中海运",
+          "category": "航运企业",
+          "logo": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=100&h=100&fit=crop"
+        },
+        {
+          "name": "航海集团",
+          "category": "建筑工程",
+          "logo": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop"
+        },
+        {
+          "name": "舟山港务",
+          "category": "港口物流",
+          "logo": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=100&h=100&fit=crop"
+        },
+        {
+          "name": "浙江交投",
+          "category": "交通建设",
+          "logo": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop"
+        },
+        {
+          "name": "普陀农业",
+          "category": "农机合作社",
+          "logo": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=100&h=100&fit=crop"
+        }
+      ]
+    },
+    "serviceStats": {
+      "experience": "34",
+      "clients": "500+",
+      "deliveryRate": "99.8%",
+      "serviceHours": "24/7",
+      "responseTime": "2",
+      "coverageArea": "6",
+      "storageCapacity": "20,000",
+      "fleetSize": "30+"
+    }
+  },
+  "services": [
+    {
+      "id": 1,
+      "icon": "TruckOutlined",
+      "title": "批量配送",
+      "description": "专业的柴油批量配送服务，最小订单500升，覆盖整个区域。",
+      "features": ["24小时服务", "当日配送", "专业车队", "危化品资质"],
+      "serviceHours": "24",
+      "minOrder": 500,
+      "coverage": "全区域",
+      "link": "/products#delivery"
+    },
+    {
+      "id": 2,
+      "icon": "RocketOutlined",
+      "title": "现场加油",
+      "description": "24/7现场加油车服务，为工地、物流中心、车队运营提供便利。",
+      "features": ["移动加油车", "现场服务", "灵活调度", "GPS实时定位"],
+      "serviceHours": "24",
+      "responseTime": "1小时内",
+      "coverage": "全市范围",
+      "link": "/products#onsite"
+    },
+    {
+      "id": 3,
+      "icon": "SafetyOutlined",
+      "title": "应急供应",
+      "description": "2小时应急响应服务，确保您的运营永不因燃料短缺而停止。",
+      "features": ["2小时响应", "应急保障", "优先配送", "专属热线"],
+      "serviceHours": "24",
+      "responseTime": "2小时内",
+      "hotline": "400-1234-9999",
+      "link": "/products#emergency"
+    },
+    {
+      "id": 4,
+      "icon": "ToolOutlined",
+      "title": "技术咨询",
+      "description": "提供专业的柴油使用技术咨询，优化您的燃料使用效率。",
+      "features": ["专家团队", "定制方案", "效率优化", "成本降低"],
+      "serviceHours": "5×8",
+      "expertTeam": "10+专家",
+      "industries": ["物流", "建筑", "农机", "航运"],
+      "link": "/products#consultation"
+    },
+    {
+      "id": 5,
+      "icon": "ExperimentOutlined",
+      "title": "质量检测",
+      "description": "专业的柴油质量检测服务，确保每一滴柴油都符合国标要求。",
+      "features": ["国标检测", "第三方认证", "质量报告", "全程追溯"],
+      "serviceHours": "5×8",
+      "standards": ["GB 19147-2016", "ISO 8217"],
+      "reportTime": "24小时内",
+      "link": "/safety#quality"
+    },
+    {
+      "id": 6,
+      "icon": "TeamOutlined",
+      "title": "客户培训",
+      "description": "提供安全使用、储存管理、设备维护等培训服务。",
+      "features": ["安全培训", "操作规范", "设备维护", "证书颁发"],
+      "serviceHours": "定期举办",
+      "courses": 8,
+      "certificates": "行业认证",
+      "link": "/careers#training"
+    }
+  ],
+  "network-map": {
+    "headquarters": {
+      "name": "总部",
+      "location": "江西省",
+      "coordinates": [115.8579, 28.6839]
+    },
+    "branches": [
+      {
+        "name": "华东分部",
+        "location": "上海",
+        "coordinates": [121.4737, 31.2304]
+      },
+      {
+        "name": "华南分部", 
+        "location": "广州",
+        "coordinates": [113.2644, 23.1291]
+      },
+      {
+        "name": "华北分部",
+        "location": "北京",
+        "coordinates": [116.4074, 39.9042]
+      },
+      {
+        "name": "西南分部",
+        "location": "成都",
+        "coordinates": [104.0668, 30.5728]
+      },
+      {
+        "name": "华中分部",
+        "location": "武汉",
+        "coordinates": [114.3056, 30.5928]
+      }
+    ]
+  },
+  "testimonials": [
+    {
+      "id": 1,
+      "content": "天骏石化的配送服务非常及时可靠，他们的专业团队确保我们的施工现场从不缺油。24小时应急服务更是解决了我们的后顾之忧。",
+      "author": "张总",
+      "company": "建设集团",
+      "rating": 5,
+      "avatar": "Z",
+      "verified": true,
+      "industry": "建筑工程",
+      "cooperationYears": 5,
+      "monthlyVolume": "8000升"
+    },
+    {
+      "id": 2,
+      "content": "作为物流公司，燃油质量和供应稳定性对我们至关重要。天骏石化的0#柴油质量稳定，价格透明，是我们长期合作的可靠伙伴。",
+      "author": "李经理",
+      "company": "运输有限公司",
+      "rating": 5,
+      "avatar": "L",
+      "verified": true,
+      "industry": "物流运输",
+      "cooperationYears": 8,
+      "monthlyVolume": "15000升"
+    },
+    {
+      "id": 3,
+      "content": "农业机械对燃油要求很高，天骏石化提供的柴油不仅质量好，而且他们的技术人员还会定期回访，提供专业的燃油管理建议。",
+      "author": "王农户",
+      "company": "农业合作社",
+      "rating": 5,
+      "avatar": "W",
+      "verified": true,
+      "industry": "农业机械",
+      "cooperationYears": 3,
+      "monthlyVolume": "5000升"
+    },
+    {
+      "id": 4,
+      "content": "与天骏石化合作已经10多年，他们的服务质量和价格都非常竞争力。特别是应急供应服务，多次在紧急情况下解决了我们的燃料问题。",
+      "author": "陈董事长",
+      "company": "港口物流集团",
+      "rating": 5,
+      "avatar": "C",
+      "verified": true,
+      "industry": "港口物流",
+      "cooperationYears": 12,
+      "monthlyVolume": "25000升"
+    },
+    {
+      "id": 5,
+      "content": "作为新客户，我们对天骏石化的专业性和服务态度印象深刻。从咨询到配送，每一个环节都体现了他们的专业水准。",
+      "author": "刘总经理",
+      "company": "智能制造有限公司",
+      "rating": 5,
+      "avatar": "L",
+      "verified": true,
+      "industry": "制造业",
+      "cooperationYears": 1,
+      "monthlyVolume": "3000升"
+    },
+    {
+      "id": 6,
+      "content": "在危化品运输方面，天骏石化的专业性无可挑剔。他们的驾驶员都经过专业培训，车辆设备也非常先进，让我们非常放心。",
+      "author": "吴副总",
+      "company": "城建工程公司",
+      "rating": 5,
+      "avatar": "W",
+      "verified": true,
+      "industry": "工程建设",
+      "cooperationYears": 6,
+      "monthlyVolume": "12000升"
+    }
+  ],
+  "latest-news": [
+    {
+      "id": 1,
+      "title": "天骏石化与多家大型物流企业签署年度供油协议",
+      "excerpt": "近日，天骏石化成功与区域内多家知名物流企业签署2024年度燃油供应协议，进一步巩固了在商用车燃油市场的领先地位...",
+      "image": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "date": "2024-01-20",
+      "category": "业务拓展",
+      "views": 1250,
+      "slug": "annual-supply-agreement-2024"
+    },
+    {
+      "id": 2,
+      "title": "公司获得ISO 14001环境管理体系认证续期",
+      "excerpt": "天骏石化顺利通过ISO 14001环境管理体系认证复审，这标志着公司在环境保护和可持续发展方面的持续努力得到了权威认可...",
+      "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "date": "2024-01-15",
+      "category": "企业资质",
+      "views": 890,
+      "slug": "iso-14001-renewal-2024"
+    },
+    {
+      "id": 3,
+      "title": "应急演练：2小时响应承诺的坚实保障",
+      "excerpt": "为确保应急供油服务质量，公司定期组织应急演练。本次演练模拟了极端天气下的紧急供油需求，全程用时1小时38分钟...",
+      "image": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "date": "2024-01-10",
+      "category": "安全管理",
+      "views": 567,
+      "slug": "emergency-drill-2024"
+    },
+    {
+      "id": 4,
+      "title": "天骏石化技术团队荣获省级安全生产先进集体称号",
+      "excerpt": "在省安监局组织的年度评选中，我公司技术团队凭借在安全生产管理和技术创新方面的突出表现，荣获省级安全生产先进集体称号...",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "date": "2024-01-05",
+      "category": "企业荣誉",
+      "views": 423,
+      "slug": "safety-award-2024"
+    }
+  ],
+  "fuel-price": {
+    "currentPrice": 6.85,
+    "currency": "CNY",
+    "unit": "升",
+    "updateTime": "2024-01-20T09:00:00Z",
+    "marketPrice": 6.95,
+    "savings": 0.10,
+    "trend": "stable",
+    "lastWeekAvg": 6.88
+  },
+  "products": {
+    "data": [
+      {
+        "id": 1,
+        "name": "0#柴油",
+        "category": "燃油产品",
+        "price": 6.85,
+        "unit": "升",
+        "description": "高品质0#柴油，适用于各类柴油发动机",
+        "detailDescription": "我们提供的0#柴油严格按照GB 19147-2016国家标准生产，适用于各种柴油车辆和工程机械。产品具有燃烧充分、动力强劲、清洁环保等特点。",
+        "images": [
+          "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ],
+        "specifications": {
+          "density": "0.820-0.845 kg/L",
+          "sulfurContent": "≤ 10 mg/kg",
+          "flashPoint": "≥ 55°C",
+          "cetaneNumber": "≥ 51",
+          "viscosity": "3.0-8.0 mm²/s",
+          "carbonResidue": "≤ 0.30%"
+        },
+        "applications": [
+          "商用车辆",
+          "工程机械",
+          "农业机械",
+          "发电机组",
+          "船舶动力"
+        ],
+        "minOrder": 500,
+        "available": true,
+        "stock": "99999",
+        "relatedProducts": [
+          {
+            "id": 2,
+            "name": "-10#柴油",
+            "category": "燃油产品"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "-10#柴油",
+        "category": "燃油产品",
+        "price": 7.05,
+        "unit": "升",
+        "description": "低温环境专用-10#柴油，适用于冬季使用",
+        "detailDescription": "-10#柴油适用于环境温度在-5°C至-14°C的地区使用，具有良好的低温流动性和冷启动性能。",
+        "images": [
+          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ],
+        "specifications": {
+          "density": "0.820-0.845 kg/L",
+          "sulfurContent": "≤ 10 mg/kg",
+          "flashPoint": "≥ 55°C",
+          "coldFilterPoint": "≤ -10°C",
+          "cetaneNumber": "≥ 51"
+        },
+        "applications": [
+          "冬季车辆",
+          "低温环境作业",
+          "高原地区使用"
+        ],
+        "minOrder": 500,
+        "available": true,
+        "stock": "5000",
+        "seasonal": true
+      },
+      {
+        "id": 3,
+        "name": "添加剂包",
+        "category": "添加剂产品",
+        "price": 25.00,
+        "unit": "瓶",
+        "description": "专业柴油添加剂，提升燃料性能和清洁度",
+        "detailDescription": "我们的添加剂包含清洁剂、抗氧化剂、金属铝化剂等多种成分，能够有效清洁发动机积炭、提高燃烧效率、延长发动机寿命。",
+        "images": [
+          "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+        ],
+        "specifications": {
+          "volume": "500ml",
+          "ratio": "1:1000",
+          "shelf_life": "3年",
+          "storage_temp": "0-40°C"
+        },
+        "applications": [
+          "柴油发动机保养",
+          "燃料系统清洁",
+          "性能优化提升"
+        ],
+        "minOrder": 10,
+        "available": true,
+        "stock": "200"
+      }
+    ],
+    "total": 3,
+    "categories": [
+      {
+        "id": "fuel",
+        "name": "燃油产品",
+        "count": 2
+      },
+      {
+        "id": "additive",
+        "name": "添加剂产品",
+        "count": 1
+      }
+    ]
+  },
+  "news": {
+    "data": [
+      {
+        "id": 1,
+        "title": "天骏石化与多家大型物流企业签署年度供油协议",
+        "excerpt": "近日，天骏石化成功与区域内多家知名物流企业签署2024年度燃油供应协议，进一步巩固了在商用车燃油市场的领先地位。此次签约涉及年供油量超过500万升，涵盖日常配送、应急供应、技术支持等全方位服务。",
+        "content": "<p>2024年1月20日，天骏石化在总部会议室举行了年度战略合作伙伴签约仪式。本次签约仪式上，公司与包括华东运输集团、江南物流有限公司、舟山港务物流在内的15家大型物流企业签署了2024年度燃油供应协议。</p><p>此次签约总金额超过3000万元，年供油量预计达到500万升以上。协议涵盖了日常配送、应急供应、现场加油、技术咨询等全方位服务内容。</p><p>公司总经理表示：'这些战略合作协议的签署，不仅体现了合作伙伴对我们服务质量和产品品质的高度认可，更为公司2024年的稳健发展奠定了坚实基础。'</p>",
+        "image": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "date": "2024-01-20",
+        "category": "业务拓展",
+        "categoryId": "business",
+        "author": "企业发展部",
+        "views": 1250,
+        "likes": 45,
+        "comments": 12,
+        "slug": "annual-supply-agreement-2024",
+        "tags": ["合作协议", "物流企业", "战略伙伴"],
+        "featured": true,
+        "status": "published"
+      },
+      {
+        "id": 2,
+        "title": "公司获得ISO 14001环境管理体系认证续期",
+        "excerpt": "天骏石化顺利通过ISO 14001环境管理体系认证复审，这标志着公司在环境保护和可持续发展方面的持续努力得到了权威认可。",
+        "content": "<p>经过为期三天的严格审核，天骏石化顺利通过了ISO 14001:2015环境管理体系认证的监督审核，获得认证续期。</p><p>审核专家组对公司在废水处理、废气排放、固体废物管理等方面的环保措施给予了高度评价。特别是公司投资建设的新型废水处理设施，处理效率达到99.5%以上，远超国家标准要求。</p><p>此次认证续期的获得，进一步证明了天骏石化在环境保护方面的专业能力和责任担当。</p>",
+        "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "date": "2024-01-15",
+        "category": "企业资质",
+        "categoryId": "certification",
+        "author": "质量管理部",
+        "views": 890,
+        "likes": 38,
+        "comments": 8,
+        "slug": "iso-14001-renewal-2024",
+        "tags": ["ISO认证", "环境管理", "可持续发展"],
+        "featured": false,
+        "status": "published"
+      },
+      {
+        "id": 3,
+        "title": "应急演练：2小时响应承诺的坚实保障",
+        "excerpt": "为确保应急供油服务质量，公司定期组织应急演练。本次演练模拟了极端天气下的紧急供油需求，全程用时1小时38分钟。",
+        "content": "<p>1月10日上午，天骏石化组织了2024年首次应急供油演练。本次演练模拟在台风天气下，某物流园区因供电中断导致储油设施无法正常工作，急需紧急供油的场景。</p><p>演练从接到求助电话开始，经过现场评估、调度车辆、装油运输、现场供油等环节，全程用时1小时38分钟，再次验证了公司'2小时应急响应'承诺的可靠性。</p><p>通过定期演练，不断完善应急响应流程，确保在真正的紧急情况下能够快速、安全、高效地为客户提供供油服务。</p>",
+        "image": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "date": "2024-01-10",
+        "category": "安全管理",
+        "categoryId": "safety",
+        "author": "安全管理部",
+        "views": 567,
+        "likes": 23,
+        "comments": 5,
+        "slug": "emergency-drill-2024",
+        "tags": ["应急演练", "安全管理", "服务承诺"],
+        "featured": false,
+        "status": "published"
+      },
+      {
+        "id": 4,
+        "title": "天骏石化技术团队荣获省级安全生产先进集体称号",
+        "excerpt": "在省安监局组织的年度评选中，我公司技术团队凭借在安全生产管理和技术创新方面的突出表现，荣获省级安全生产先进集体称号。",
+        "content": "<p>近日，浙江省应急管理厅公布了2023年度安全生产先进集体和先进个人名单，天骏石化技术团队荣获'省级安全生产先进集体'称号。</p><p>该团队在过去一年中，主导完成了储罐安全监测系统升级、运输车辆GPS实时监控平台建设、应急响应流程优化等多个重要项目，显著提升了公司整体安全管理水平。</p><p>这一荣誉的获得，充分体现了公司对安全生产工作的高度重视和在安全技术创新方面取得的显著成效。</p>",
+        "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "date": "2024-01-05",
+        "category": "企业荣誉",
+        "categoryId": "honor",
+        "author": "人力资源部",
+        "views": 423,
+        "likes": 31,
+        "comments": 7,
+        "slug": "safety-award-2024",
+        "tags": ["企业荣誉", "安全生产", "技术创新"],
+        "featured": true,
+        "status": "published"
+      },
+      {
+        "id": 5,
+        "title": "智能化储油设施投入使用，提升安全管理水平",
+        "excerpt": "公司新建的智能化储油设施正式投入使用，采用物联网技术实现24小时自动监测，大幅提升了储存安全管理水平。",
+        "content": "<p>经过6个月的建设，天骏石化智能化储油设施项目正式投入使用。该项目总投资800万元，采用了国际先进的物联网监测技术。</p><p>新设施配备了温度、压力、液位、气体浓度等多种传感器，能够实现24小时不间断自动监测。一旦发现异常情况，系统会立即发出警报并自动启动应急处理程序。</p><p>项目负责人介绍：'智能化储油设施的投入使用，不仅提升了储存安全管理水平，还大大提高了运营效率，为客户提供更加安全可靠的服务。'</p>",
+        "image": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "date": "2023-12-28",
+        "category": "技术创新",
+        "categoryId": "technology",
+        "author": "技术研发部",
+        "views": 756,
+        "likes": 42,
+        "comments": 15,
+        "slug": "smart-storage-facility-2023",
+        "tags": ["智能化", "技术升级", "安全管理"],
+        "featured": false,
+        "status": "published"
+      },
+      {
+        "id": 6,
+        "title": "年终客户答谢会圆满举办，共话合作新篇章",
+        "excerpt": "12月20日，天骏石化2023年度客户答谢会在舟山国际酒店成功举办，来自各行业的200余位重要客户参加了本次活动。",
+        "content": "<p>12月20日晚，天骏石化2023年度客户答谢会在舟山国际酒店隆重举行。来自物流运输、建筑工程、农业机械、港口物流等各行业的200余位重要客户代表参加了本次活动。</p><p>答谢会上，公司董事长发表了热情洋溢的致辞，回顾了2023年公司与各位合作伙伴携手取得的丰硕成果，并展望了2024年的发展前景。</p><p>活动现场还举行了'年度最佳合作伙伴'颁奖仪式，表彰了在合作中表现突出的优秀客户，进一步加深了双方的合作关系。</p>",
+        "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "date": "2023-12-20",
+        "category": "企业活动",
+        "categoryId": "events",
+        "author": "市场营销部",
+        "views": 1089,
+        "likes": 67,
+        "comments": 23,
+        "slug": "customer-appreciation-2023",
+        "tags": ["客户答谢", "企业活动", "合作伙伴"],
+        "featured": false,
+        "status": "published"
+      }
+    ],
+    "total": 6,
+    "categories": [
+      {
+        "id": "business",
+        "name": "业务拓展",
+        "count": 1
+      },
+      {
+        "id": "certification",
+        "name": "企业资质",
+        "count": 1
+      },
+      {
+        "id": "safety",
+        "name": "安全管理",
+        "count": 1
+      },
+      {
+        "id": "honor",
+        "name": "企业荣誉",
+        "count": 1
+      },
+      {
+        "id": "technology",
+        "name": "技术创新",
+        "count": 1
+      },
+      {
+        "id": "events",
+        "name": "企业活动",
+        "count": 1
+      }
+    ]
+  },
+  "about": {
+    "company-info": {
+      "name": "舟山天骏石油化工有限公司",
+      "establishedYear": 1990,
+      "registeredCapital": "5000万元",
+      "legalRepresentative": "张明华",
+      "businessScope": "危险化学品经营；成品油批发；石油制品销售；货物运输；仓储服务",
+      "address": "浙江省舟山市定海区工业园区石化路88号",
+      "description": "舟山天骏石油化工有限公司成立于1990年，是一家专业从事成品油销售、危险化学品经营的第三代家族企业。公司拥有完善的销售网络和专业的配送车队，主要经营0#柴油、-10#柴油等石油制品，为物流运输、建筑工程、农业机械等行业提供优质的燃油供应服务。",
+      "mission": "为客户提供安全、可靠、高效的燃油供应服务，成为行业内最值得信赖的合作伙伴。",
+      "vision": "建设成为区域领先的综合性石化服务企业，为推动地方经济发展贡献力量。",
+      "values": [
+        "安全第一，质量为本",
+        "客户至上，服务专业",
+        "诚信经营，合作共赢",
+        "创新发展，可持续经营"
+      ],
+      "history": [
+        {
+          "year": 1990,
+          "event": "公司成立，开始石油制品销售业务"
+        },
+        {
+          "year": 1995,
+          "event": "获得危险化学品经营许可证"
+        },
+        {
+          "year": 2000,
+          "event": "建设第一个储油基地，储存能力达到5000吨"
+        },
+        {
+          "year": 2005,
+          "event": "通过ISO 9001质量管理体系认证"
+        },
+        {
+          "year": 2010,
+          "event": "第二代传承，公司规模进一步扩大"
+        },
+        {
+          "year": 2015,
+          "event": "通过ISO 14001环境管理体系认证"
+        },
+        {
+          "year": 2020,
+          "event": "第三代传承，开启数字化转型"
+        },
+        {
+          "year": 2023,
+          "event": "智能化储油设施投入使用"
+        }
+      ],
+      "certifications": [
+        {
+          "name": "危险化学品经营许可证",
+          "number": "浙危化经字[2023]001号",
+          "issuedBy": "舟山市应急管理局",
+          "validUntil": "2026-12-31"
+        },
+        {
+          "name": "ISO 9001质量管理体系认证",
+          "number": "ISO9001-2023-TJ001",
+          "issuedBy": "中国质量认证中心",
+          "validUntil": "2026-03-15"
+        },
+        {
+          "name": "ISO 14001环境管理体系认证",
+          "number": "ISO14001-2024-TJ001",
+          "issuedBy": "中国环境认证中心",
+          "validUntil": "2027-01-20"
+        }
+      ],
+      "management": [
+        {
+          "name": "张明华",
+          "position": "董事长兼总经理",
+          "description": "第三代企业传承人，拥有20年石化行业经验",
+          "avatar": "Z"
+        },
+        {
+          "name": "李建国",
+          "position": "副总经理",
+          "description": "负责市场营销和客户服务，15年行业经验",
+          "avatar": "L"
+        },
+        {
+          "name": "王安全",
+          "position": "安全总监",
+          "description": "负责安全生产和环保工作，安全工程师",
+          "avatar": "W"
+        }
+      ]
+    }
+  },
+  "contact": {
+    "info": {
+      "company": "舟山天骏石油化工有限公司",
+      "address": "浙江省舟山市定海区工业园区石化路88号",
+      "phone": "0580-1234567",
+      "fax": "0580-1234568",
+      "email": "info@tianjun-petro.com",
+      "website": "www.tianjun-petro.com",
+      "emergencyHotline": "400-1234-9999",
+      "businessHours": {
+        "weekdays": "08:00-17:30",
+        "weekends": "09:00-16:00",
+        "emergency": "24小时"
+      },
+      "coordinates": {
+        "latitude": 30.0194,
+        "longitude": 122.1067
+      },
+      "departments": [
+        {
+          "name": "销售部",
+          "phone": "0580-1234571",
+          "email": "sales@tianjun-petro.com",
+          "manager": "李经理"
+        },
+        {
+          "name": "客服部",
+          "phone": "0580-1234572",
+          "email": "service@tianjun-petro.com",
+          "manager": "王经理"
+        },
+        {
+          "name": "技术部",
+          "phone": "0580-1234573",
+          "email": "tech@tianjun-petro.com",
+          "manager": "赵工程师"
+        },
+        {
+          "name": "财务部",
+          "phone": "0580-1234574",
+          "email": "finance@tianjun-petro.com",
+          "manager": "陈经理"
+        }
+      ],
+      "socialMedia": {
+        "wechat": "tianjun_petro",
+        "weibo": "@舟山天骏石化",
+        "linkedin": "tianjun-petrochemical"
+      }
+    },
+    "offices": [
+      {
+        "id": 1,
+        "name": "总部",
+        "address": "浙江省舟山市定海区工业园区石化路88号",
+        "phone": "0580-1234567",
+        "coordinates": {
+          "latitude": 30.0194,
+          "longitude": 122.1067
+        },
+        "type": "headquarters"
+      },
+      {
+        "id": 2,
+        "name": "普陀分公司",
+        "address": "浙江省舟山市普陀区沈家门街道海洋路168号",
+        "phone": "0580-1234577",
+        "coordinates": {
+          "latitude": 29.9682,
+          "longitude": 122.3089
+        },
+        "type": "branch"
+      }
+    ]
+  },
+  "safety": {
+    "policies": [
+      {
+        "id": 1,
+        "title": "危险化学品安全管理制度",
+        "description": "建立完善的危险化学品采购、储存、销售、运输全流程安全管理制度",
+        "lastUpdated": "2024-01-15"
+      },
+      {
+        "id": 2,
+        "title": "应急响应预案",
+        "description": "制定详细的应急响应预案，包括泄漏、火灾、爆炸等突发事件的处理流程",
+        "lastUpdated": "2024-01-10"
+      },
+      {
+        "id": 3,
+        "title": "员工安全培训制度",
+        "description": "定期组织员工安全培训，确保所有员工熟悉安全操作规程",
+        "lastUpdated": "2023-12-20"
+      }
+    ],
+    "certifications": [
+      {
+        "name": "危险化学品经营许可证",
+        "authority": "舟山市应急管理局",
+        "validUntil": "2026-12-31",
+        "status": "有效"
+      },
+      {
+        "name": "道路运输经营许可证",
+        "authority": "舟山市交通运输局",
+        "validUntil": "2025-08-30",
+        "status": "有效"
+      }
+    ],
+    "equipment": [
+      {
+        "name": "储罐安全监测系统",
+        "description": "24小时实时监测储罐温度、压力、液位等关键参数",
+        "status": "正常运行"
+      },
+      {
+        "name": "消防系统",
+        "description": "配备自动喷淋、泡沫灭火等多种消防设施",
+        "status": "正常运行"
+      },
+      {
+        "name": "气体检测系统",
+        "description": "实时监测可燃气体浓度，及时发现安全隐患",
+        "status": "正常运行"
+      }
+    ]
+  },
+  "careers": {
+    "positions": [
+      {
+        "id": 1,
+        "title": "销售经理",
+        "department": "销售部",
+        "location": "舟山",
+        "type": "全职",
+        "experience": "3-5年",
+        "education": "本科及以上",
+        "salary": "8-12K",
+        "description": "负责客户开发和维护，制定销售策略，完成销售目标",
+        "requirements": [
+          "市场营销或相关专业本科以上学历",
+          "3年以上销售工作经验，石化行业优先",
+          "良好的沟通协调能力和团队合作精神",
+          "熟悉CRM系统操作"
+        ],
+        "benefits": [
+          "五险一金",
+          "带薪年假",
+          "绩效奖金",
+          "培训机会"
+        ],
+        "status": "招聘中",
+        "publishDate": "2024-01-15"
+      },
+      {
+        "id": 2,
+        "title": "安全工程师",
+        "department": "安全部",
+        "location": "舟山",
+        "type": "全职",
+        "experience": "2-3年",
+        "education": "本科及以上",
+        "salary": "7-10K",
+        "description": "负责安全生产管理，制定安全制度，组织安全培训",
+        "requirements": [
+          "安全工程或相关专业本科以上学历",
+          "持有注册安全工程师证书优先",
+          "熟悉危化品安全管理法规",
+          "责任心强，工作细致认真"
+        ],
+        "benefits": [
+          "五险一金",
+          "专业培训",
+          "证书补贴",
+          "年终奖金"
+        ],
+        "status": "招聘中",
+        "publishDate": "2024-01-10"
+      },
+      {
+        "id": 3,
+        "title": "运输调度员",
+        "department": "物流部",
+        "location": "舟山",
+        "type": "全职",
+        "experience": "1-2年",
+        "education": "大专及以上",
+        "salary": "5-7K",
+        "description": "负责车辆调度，制定运输计划，跟踪运输进度",
+        "requirements": [
+          "物流管理或相关专业大专以上学历",
+          "熟悉GPS调度系统",
+          "具备良好的沟通协调能力",
+          "能适应倒班工作"
+        ],
+        "benefits": [
+          "五险一金",
+          "加班补贴",
+          "餐饮补助",
+          "节日福利"
+        ],
+        "status": "招聘中",
+        "publishDate": "2024-01-08"
+      }
+    ],
+    "benefits": {
+      "compensation": [
+        "具有竞争力的薪酬待遇",
+        "年终奖金",
+        "绩效奖励",
+        "长期激励计划"
+      ],
+      "insurance": [
+        "五险一金",
+        "补充医疗保险",
+        "意外伤害保险",
+        "年度体检"
+      ],
+      "welfare": [
+        "带薪年假",
+        "节日福利",
+        "生日福利",
+        "员工旅游"
+      ],
+      "development": [
+        "专业培训",
+        "职业规划",
+        "晋升机会",
+        "学历提升支持"
+      ]
+    },
+    "culture": {
+      "workEnvironment": "舒适的办公环境，完善的安全设施，和谐的团队氛围",
+      "teamSpirit": "团结协作，互相支持，共同成长",
+      "innovation": "鼓励创新思维，支持员工提出改进建议",
+      "responsibility": "承担社会责任，关注环境保护，促进可持续发展"
+    }
+  },
+  "contact-messages": [],
+  "job-applications": [],
+  "inquiries": []
+}

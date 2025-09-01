@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Card, Button, Carousel, Statistic, List, Tag, Avatar, Rate, Badge } from 'antd'
+import { Row, Col, Card, Button, Carousel, Statistic, List, Tag, Avatar, Rate, Badge, Modal, Form, Input, Select, message } from 'antd'
 import { 
   TrophyOutlined, 
   SafetyOutlined, 
@@ -17,15 +17,22 @@ import {
   CrownFilled,
   SafetyCertificateFilled,
   ToolOutlined,
-  ExperimentOutlined
+  ExperimentOutlined,
+  SearchOutlined,
+  DollarOutlined,
+  UserOutlined,
+  GlobalOutlined
 } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
 import EChartsNetworkMap from '../components/Common/EChartsNetworkMap'
 import { TrustBar } from '../components/Trust'
+// API集成导入
+import { useAPI } from '../hooks/useAPI'
+import api from '../services/api'
 
 const StyledHome = styled.div`
   .hero-section {
@@ -1353,17 +1360,37 @@ const Home = () => {
   const { ref: mapRef, inView: mapInView } = useInView({ threshold: 0.1 })
   const { ref: testimonialsRef, inView: testimonialsInView } = useInView({ threshold: 0.1 })
   const { ref: newsRef, inView: newsInView } = useInView({ threshold: 0.1 })
+  const navigate = useNavigate()
+
+  // API数据获取 - 保持向后兼容的回退机制
+  const { data: apiHeroSlides } = useAPI(api.home.getBanners, { immediate: true })
+  const { data: apiServices } = useAPI(api.home.getServices, { immediate: true })
+  const { data: apiTestimonials } = useAPI(api.home.getTestimonials, { immediate: true })
+  const { data: apiNewsData } = useAPI(api.home.getHomeLatestNews, { immediate: true })
+  const { data: apiFuelPrice } = useAPI(api.home.getFuelPrice, { immediate: true })
+
+  // 状态管理
+  const [quickQuoteVisible, setQuickQuoteVisible] = useState(false)
+  const [orderTrackingVisible, setOrderTrackingVisible] = useState(false)
+  const [priceDetailVisible, setPriceDetailVisible] = useState(false)
+  const [form] = Form.useForm()
+  const [trackingForm] = Form.useForm()
 
   useEffect(() => {
-    // 模拟柴油价格波动
-    const interval = setInterval(() => {
-      setDieselPrice(prev => prev + (Math.random() - 0.5) * 0.1)
-    }, 10000)
-    
-    return () => clearInterval(interval)
-  }, [])
+    // 使用API返回的价格，如果没有则模拟价格波动
+    if (apiFuelPrice?.currentPrice) {
+      setDieselPrice(apiFuelPrice.currentPrice)
+    } else {
+      const interval = setInterval(() => {
+        setDieselPrice(prev => prev + (Math.random() - 0.5) * 0.1)
+      }, 10000)
+      
+      return () => clearInterval(interval)
+    }
+  }, [apiFuelPrice])
 
-  const heroSlides = [
+  // 静态数据作为默认值，API数据作为优先选项
+  const heroSlides = apiHeroSlides || [
     {
       image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
       title: '可靠的0#柴油供应自1990年',
@@ -1371,7 +1398,17 @@ const Home = () => {
     }
   ]
 
-  const services = [
+  // 图标映射函数，支持API数据中的字符串图标
+  const getIconComponent = (iconName) => {
+    const iconMap = {
+      'TruckOutlined': <TruckOutlined />,
+      'RocketOutlined': <RocketOutlined />,
+      'SafetyOutlined': <SafetyOutlined />
+    }
+    return iconMap[iconName] || <TruckOutlined />
+  }
+
+  const services = (apiServices || [
     {
       icon: <TruckOutlined />,
       title: '批量配送',
@@ -1390,9 +1427,13 @@ const Home = () => {
       desc: '2小时应急响应服务，确保您的运营永不因燃料短缺而停止。',
       link: '/products#emergency'
     }
-  ]
+  ]).map(service => ({
+    ...service,
+    // 如果API返回的是字符串图标，转换为组件
+    icon: typeof service.icon === 'string' ? getIconComponent(service.icon) : service.icon
+  }))
 
-  const testimonials = [
+  const testimonials = apiTestimonials || [
     {
       content: '天骏石化的配送服务非常及时可靠，他们的专业团队确保我们的施工现场从不缺油。24小时应急服务更是解决了我们的后顾之忧。',
       author: '张总',
@@ -1416,7 +1457,7 @@ const Home = () => {
     }
   ]
 
-  const newsData = [
+  const newsData = apiNewsData || [
     {
       id: 1,
       title: '天骏石化与多家大型物流企业签署年度供油协议',
@@ -1442,6 +1483,67 @@ const Home = () => {
       category: '安全管理'
     }
   ]
+
+  // 事件处理函数
+  const handleQuickQuote = () => {
+    setQuickQuoteVisible(true)
+  }
+
+  const handleOrderTracking = () => {
+    setOrderTrackingVisible(true)
+  }
+
+  const handlePriceDetail = () => {
+    setPriceDetailVisible(true)
+  }
+
+  const handleServiceClick = (service) => {
+    // 根据服务类型跳转到产品页面的对应部分
+    if (service.link) {
+      navigate(service.link)
+    } else {
+      navigate('/products')
+    }
+  }
+
+  const handleNewsClick = (newsItem) => {
+    navigate(`/news/${newsItem.id}`)
+  }
+
+  const handleQuickQuoteSubmit = async (values) => {
+    try {
+      const quoteData = {
+        ...values,
+        source: 'homepage_banner',
+        timestamp: new Date().toISOString()
+      }
+      
+      // 调用API
+      const response = await api.home.quickQuote(quoteData)
+      
+      if (response) {
+        message.success('询价请求提交成功！我们将在24小时内联系您。')
+        setQuickQuoteVisible(false)
+        form.resetFields()
+      }
+    } catch (error) {
+      message.error('提交失败，请稍后重试。')
+    }
+  }
+
+  const handleOrderTrackingSubmit = async (values) => {
+    try {
+      const response = await api.orders.getTracking(values.orderId)
+      
+      if (response) {
+        // 显示订单信息
+        message.success('订单查询成功！')
+        // 可以在这里显示订单详情或跳转到订单页面
+      }
+    } catch (error) {
+      message.error('订单查询失败，请检查订单号是否正确。')
+    }
+  }
 
   return (
     <StyledHome>
@@ -1482,10 +1584,20 @@ const Home = () => {
                     </div>
                   </div>
                   <div className="hero-cta">
-                    <Button type="primary" size="large" className="btn-primary">
+                    <Button 
+                      type="primary" 
+                      size="large" 
+                      className="btn-primary"
+                      onClick={() => handleQuickQuote()}
+                    >
                       立即询价
                     </Button>
-                    <Button size="large" className="btn-secondary" ghost>
+                    <Button 
+                      size="large" 
+                      className="btn-secondary" 
+                      ghost
+                      onClick={() => handleOrderTracking()}
+                    >
                       <PhoneOutlined /> 追踪订单
                     </Button>
                   </div>
@@ -1522,7 +1634,7 @@ const Home = () => {
                   animate={servicesInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Link to={service.link}>
+                  <Link to={service.link} onClick={() => handleServiceClick(service)}>
                     <Card 
                       className="service-card" 
                       hoverable
@@ -1703,7 +1815,7 @@ const Home = () => {
                     <Card.Meta
                       title={
                         <div className="news-header">
-                          <Link to={`/news/${news.id}`}>
+                          <Link to={`/news/${news.id}`} onClick={() => handleNewsClick(news)}>
                             <span className="news-title">{news.title}</span>
                           </Link>
                         </div>
@@ -1741,22 +1853,240 @@ const Home = () => {
       </section>
 
       {/* 实时价格显示 */}
-      <div style={{
-        position: 'fixed',
-        bottom: '20px',
-        right: '20px',
-        background: 'rgba(0, 76, 151, 0.85)',
-        backdropFilter: 'blur(10px)',
-        color: 'white',
-        padding: '12px 16px',
-        borderRadius: 'var(--border-radius-lg)',
-        boxShadow: 'var(--shadow-lg)',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        zIndex: 1000
-      }}>
+      <div 
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          background: 'rgba(0, 76, 151, 0.85)',
+          backdropFilter: 'blur(10px)',
+          color: 'white',
+          padding: '12px 16px',
+          borderRadius: 'var(--border-radius-lg)',
+          boxShadow: 'var(--shadow-lg)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          zIndex: 1000,
+          cursor: 'pointer',
+          transition: 'all 0.3s ease'
+        }}
+        onClick={handlePriceDetail}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'scale(1.05)'
+          e.target.style.background = 'rgba(0, 76, 151, 0.95)'
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'scale(1)'
+          e.target.style.background = 'rgba(0, 76, 151, 0.85)'
+        }}
+      >
         <div style={{ fontSize: '12px', opacity: 0.9 }}>今日0#柴油价格</div>
         <div style={{ fontSize: '18px', fontWeight: 'bold' }}>¥{dieselPrice.toFixed(2)}/升</div>
+        <div style={{ fontSize: '10px', opacity: 0.7, marginTop: '4px' }}>点击查看详情</div>
       </div>
+
+      {/* 快速询价模态框 */}
+      <Modal
+        title="快速询价"
+        open={quickQuoteVisible}
+        onCancel={() => setQuickQuoteVisible(false)}
+        footer={null}
+        width={600}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleQuickQuoteSubmit}
+        >
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="联系人"
+                name="contactName"
+                rules={[{ required: true, message: '请输入联系人姓名' }]}
+              >
+                <Input placeholder="请输入联系人姓名" prefix={<UserOutlined />} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="联系电话"
+                name="contactPhone"
+                rules={[
+                  { required: true, message: '请输入联系电话' },
+                  { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码' }
+                ]}
+              >
+                <Input placeholder="请输入联系电话" prefix={<PhoneOutlined />} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="需求数量"
+                name="quantity"
+                rules={[{ required: true, message: '请输入需求数量' }]}
+              >
+                <Input placeholder="请输入数量" suffix="升" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="用途"
+                name="usage"
+                rules={[{ required: true, message: '请选择用途' }]}
+              >
+                <Select placeholder="请选择用途">
+                  <Select.Option value="construction">工程建设</Select.Option>
+                  <Select.Option value="logistics">物流运输</Select.Option>
+                  <Select.Option value="agriculture">农业机械</Select.Option>
+                  <Select.Option value="mining">矿山开采</Select.Option>
+                  <Select.Option value="other">其他</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item
+            label="配送地址"
+            name="deliveryAddress"
+            rules={[{ required: true, message: '请输入配送地址' }]}
+          >
+            <Input placeholder="请输入详细配送地址" prefix={<EnvironmentOutlined />} />
+          </Form.Item>
+          <Form.Item label="备注" name="remarks">
+            <Input.TextArea rows={3} placeholder="请输入特殊要求或备注信息" />
+          </Form.Item>
+          <Form.Item>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+              <Button onClick={() => setQuickQuoteVisible(false)}>
+                取消
+              </Button>
+              <Button type="primary" htmlType="submit">
+                提交询价
+              </Button>
+            </div>
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* 订单追踪模态框 */}
+      <Modal
+        title="订单追踪"
+        open={orderTrackingVisible}
+        onCancel={() => setOrderTrackingVisible(false)}
+        footer={null}
+        width={500}
+      >
+        <Form
+          form={trackingForm}
+          layout="vertical"
+          onFinish={handleOrderTrackingSubmit}
+        >
+          <Form.Item
+            label="订单号"
+            name="orderId"
+            rules={[{ required: true, message: '请输入订单号' }]}
+          >
+            <Input placeholder="请输入订单号" prefix={<SearchOutlined />} />
+          </Form.Item>
+          <Form.Item
+            label="联系电话"
+            name="phone"
+            rules={[
+              { required: true, message: '请输入联系电话' },
+              { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码' }
+            ]}
+          >
+            <Input placeholder="请输入下单时的联系电话" prefix={<PhoneOutlined />} />
+          </Form.Item>
+          <Form.Item>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+              <Button onClick={() => setOrderTrackingVisible(false)}>
+                取消
+              </Button>
+              <Button type="primary" htmlType="submit">
+                查询订单
+              </Button>
+            </div>
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* 价格详情模态框 */}
+      <Modal
+        title="今日燃油价格详情"
+        open={priceDetailVisible}
+        onCancel={() => setPriceDetailVisible(false)}
+        footer={[
+          <Button key="close" onClick={() => setPriceDetailVisible(false)}>
+            关闭
+          </Button>,
+          <Button key="quote" type="primary" onClick={() => {
+            setPriceDetailVisible(false)
+            setQuickQuoteVisible(true)
+          }}>
+            立即询价
+          </Button>
+        ]}
+        width={700}
+      >
+        <div style={{ padding: '16px 0' }}>
+          <Row gutter={[24, 24]}>
+            <Col xs={24} md={12}>
+              <Card title="当前价格" bordered={false} style={{ textAlign: 'center' }}>
+                <Statistic
+                  title="0#柴油"
+                  value={dieselPrice.toFixed(2)}
+                  suffix="元/升"
+                  valueStyle={{ color: '#1890ff', fontSize: '2rem' }}
+                />
+                <p style={{ color: '#666', marginTop: '8px' }}>
+                  更新时间: {new Date().toLocaleString()}
+                </p>
+              </Card>
+            </Col>
+            <Col xs={24} md={12}>
+              <Card title="价格优势" bordered={false}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span>市场基准价:</span>
+                    <span style={{ color: '#666' }}>¥{(dieselPrice + 0.10).toFixed(2)}/升</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span>天骏价格:</span>
+                    <span style={{ color: '#52c41a', fontWeight: 'bold' }}>¥{dieselPrice.toFixed(2)}/升</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #f0f0f0', paddingTop: '8px' }}>
+                    <span>您可节省:</span>
+                    <span style={{ color: '#ff4d4f', fontWeight: 'bold' }}>¥0.10/升</span>
+                  </div>
+                </div>
+              </Card>
+            </Col>
+          </Row>
+          
+          <Card title="价格说明" style={{ marginTop: '16px' }} bordered={false}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircleOutlined style={{ color: '#52c41a' }} />
+                <span>价格含税，透明无隐藏费用</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircleOutlined style={{ color: '#52c41a' }} />
+                <span>500升起订，量大价优</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircleOutlined style={{ color: '#52c41a' }} />
+                <span>区域内免费配送</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircleOutlined style={{ color: '#52c41a' }} />
+                <span>24小时客服热线: 400-1234-5678</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </Modal>
     </StyledHome>
   )
 }

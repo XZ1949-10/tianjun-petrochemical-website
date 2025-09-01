@@ -1,5 +1,5 @@
-import React from 'react'
-import { Row, Col, Card, Button, Statistic, Tag, Progress, Timeline } from 'antd'
+import React, { useState } from 'react'
+import { Row, Col, Card, Button, Statistic, Tag, Progress, Timeline, message, Modal } from 'antd'
 import { 
   SafetyOutlined,
   CheckCircleOutlined,
@@ -8,12 +8,16 @@ import {
   PhoneOutlined,
   DownloadOutlined,
   TrophyOutlined,
-  TeamOutlined
+  TeamOutlined,
+  EyeOutlined
 } from '@ant-design/icons'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
+// API集成导入
+import { useAPI } from '../hooks/useAPI'
+import api from '../services/api'
 
 const StyledSafety = styled.div`
   .hero-section {
@@ -210,8 +214,16 @@ const Safety = () => {
   const { ref: certRef, inView: certInView } = useInView({ threshold: 0.1 })
   const { ref: statsRef, inView: statsInView } = useInView({ threshold: 0.1 })
   const { ref: policyRef, inView: policyInView } = useInView({ threshold: 0.1 })
+  const [previewVisible, setPreviewVisible] = useState(false)
+  const [previewDocument, setPreviewDocument] = useState(null)
+  const [downloadingFile, setDownloadingFile] = useState(null)
 
-  const certifications = [
+  // API数据获取 - 保持向后兼容的回退机制
+  const { data: apiSafetyPolicies } = useAPI(api.safety.getPolicies, { immediate: true })
+  const { data: apiCertifications } = useAPI(api.safety.getCertifications, { immediate: true })
+
+  // 智能回退机制：优先使用API数据，如果没有则使用静态数据
+  const certifications = apiCertifications || [
     {
       icon: <AuditOutlined />,
       title: 'ISO 9001:2015',
@@ -283,26 +295,69 @@ const Safety = () => {
     }
   ]
 
-  const policies = [
+  const policies = apiSafetyPolicies || [
     {
+      id: 'hse-manual',
       icon: <FileProtectOutlined />,
       title: 'HSE管理手册',
       desc: '包含健康、安全、环境管理的完整体系文件',
-      size: '2.5 MB'
+      size: '2.5 MB',
+      downloadUrl: '/documents/hse-manual.pdf'
     },
     {
+      id: 'emergency-plan',
       icon: <SafetyOutlined />,
       title: '应急预案',
       desc: '各类事故应急处理预案及操作指南',
-      size: '1.8 MB'
+      size: '1.8 MB',
+      downloadUrl: '/documents/emergency-plan.pdf'
     },
     {
+      id: 'safety-procedures',
       icon: <AuditOutlined />,
       title: '安全作业规程',
       desc: '详细的安全操作标准和规范要求',
-      size: '3.2 MB'
+      size: '3.2 MB',
+      downloadUrl: '/documents/safety-procedures.pdf'
     }
   ]
+
+  // 事件处理函数
+  const handleDownloadDocument = async (policy) => {
+    try {
+      setDownloadingFile(policy.id)
+      
+      // 调用下载API
+      const response = await api.safety.downloadDocument(policy.id)
+      
+      // 创建下载链接
+      const blob = new Blob([response.data], { type: 'application/pdf' })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `${policy.title}.pdf`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+      
+      message.success(`${policy.title} 下载成功！`)
+    } catch (error) {
+      console.error('下载失败:', error)
+      message.error(`下载失败，请稍后重试`)
+    } finally {
+      setDownloadingFile(null)
+    }
+  }
+
+  const handlePreviewDocument = async (policy) => {
+    try {
+      setPreviewDocument(policy)
+      setPreviewVisible(true)
+    } catch (error) {
+      message.error('预览失败，请稍后重试')
+    }
+  }
 
   return (
     <StyledSafety>
@@ -540,9 +595,24 @@ const Safety = () => {
                     <p style={{ color: 'var(--color-text-tertiary)', marginBottom: '1rem' }}>
                       文件大小：{policy.size}
                     </p>
-                    <Button type="primary" className="btn-primary" block>
-                      <DownloadOutlined /> 下载文件
-                    </Button>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <Button 
+                        type="primary" 
+                        className="btn-primary" 
+                        onClick={() => handleDownloadDocument(policy)}
+                        loading={downloadingFile === policy.id}
+                        style={{ flex: 1 }}
+                      >
+                        <DownloadOutlined /> 下载文件
+                      </Button>
+                      <Button 
+                        type="default" 
+                        onClick={() => handlePreviewDocument(policy)}
+                        title="预览文档"
+                      >
+                        <EyeOutlined />
+                      </Button>
+                    </div>
                   </Card>
                 </motion.div>
               </Col>
@@ -559,6 +629,81 @@ const Safety = () => {
           400-XXX-XXXX
         </div>
       </div>
+
+      {/* 文档预览模态框 */}
+      <Modal
+        title={`文档预览 - ${previewDocument?.title}`}
+        open={previewVisible}
+        onCancel={() => setPreviewVisible(false)}
+        footer={[
+          <Button key="close" onClick={() => setPreviewVisible(false)}>
+            关闭
+          </Button>,
+          <Button 
+            key="download" 
+            type="primary" 
+            onClick={() => {
+              if (previewDocument) {
+                handleDownloadDocument(previewDocument)
+              }
+            }}
+            loading={downloadingFile === previewDocument?.id}
+          >
+            <DownloadOutlined /> 下载文档
+          </Button>
+        ]}
+        width={800}
+      >
+        {previewDocument && (
+          <div style={{ padding: '16px 0' }}>
+            <div style={{ 
+              background: '#f5f5f5', 
+              padding: '16px', 
+              borderRadius: '8px', 
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px'
+            }}>
+              <div style={{ fontSize: '24px' }}>{previewDocument.icon}</div>
+              <div>
+                <h4 style={{ margin: 0, marginBottom: '4px' }}>{previewDocument.title}</h4>
+                <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
+                  {previewDocument.desc} • 文件大小: {previewDocument.size}
+                </p>
+              </div>
+            </div>
+            
+            <div style={{ 
+              background: '#fff', 
+              border: '1px solid #e8e8e8', 
+              borderRadius: '8px', 
+              padding: '20px',
+              textAlign: 'center',
+              minHeight: '300px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <FileProtectOutlined style={{ fontSize: '48px', color: '#1890ff', marginBottom: '16px' }} />
+              <h3 style={{ marginBottom: '8px' }}>文档预览</h3>
+              <p style={{ color: '#666', marginBottom: '20px' }}>
+                该文档包含重要的安全管理信息，请下载查看完整内容。
+              </p>
+              <div style={{
+                background: '#f6f8fa',
+                padding: '12px 16px',
+                borderRadius: '6px',
+                fontSize: '14px',
+                color: '#666'
+              }}>
+                📝 文档内容预览功能将在后续版本中提供
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
     </StyledSafety>
   )
 }

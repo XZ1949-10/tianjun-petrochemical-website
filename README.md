@@ -1,181 +1,177 @@
 # 舟山天骏石油化工有限公司官网
 
-一个现代化的石油化工企业官网，采用React + Vite构建，具有响应式设计和丰富的交互功能。
+一个现代化、响应式的企业官网项目，采用 React + Vite 构建，集成了完整的 API 接口和动态数据展示功能。
 
-## 功能特色
+## 🚀 项目特性
 
-- 🎨 现代化UI设计，基于Ant Design组件库
-- 📱 完全响应式设计，支持移动端和桌面端
-- 🚀 基于Vite的快速开发和构建
-- 📊 数据可视化图表（ECharts）
-- 🎬 流畅的页面动画效果（Framer Motion）
-- 🌐 多语言支持准备
-- 📈 SEO优化
+- **现代化技术栈**: React 18 + Vite + Ant Design 5
+- **响应式设计**: 完美适配桌面端和移动端
+- **动态数据驱动**: 完整的 API 集成，支持动态内容展示
+- **精美动画效果**: Framer Motion 打造流畅用户体验
+- **数据可视化**: ECharts 图表展示企业数据
+- **SEO 优化**: 完整的 SEO 元信息和结构化数据
 
-## 页面结构
-
-- **首页** - Hero轮播、快捷入口、实时数据、新闻公告
-- **关于天骏** - 公司概况、企业文化、组织架构、荣誉资质
-- **产品中心** - 产品展示、筛选搜索、详情页、产品对比
-- **解决方案** - 行业场景、成功案例、专家联系
-- **可持续发展** - ESG数据可视化、政策认证、报告下载
-- **新闻中心** - 新闻分类、标签筛选、富文本内容
-- **投资者关系** - 股票信息、财务报告、公告披露
-- **人才招聘** - 职位搜索、在线申请、企业文化
-- **联系我们** - 智能表单、地图定位、多渠道联系
-
-## 技术栈
-
-- **前端框架**: React 18
-- **构建工具**: Vite
-- **UI组件库**: Ant Design
-- **路由**: React Router DOM
-- **动画**: Framer Motion
-- **图表**: ECharts for React
-- **样式**: Styled Components + CSS
-- **HTTP客户端**: Axios
-- **日期处理**: Day.js
-- **3D渲染**: Three.js
-
-## 环境要求
-
-- Node.js >= 16.0.0
-- npm >= 8.0.0 或 yarn >= 1.22.0
-
-## 安装步骤
-
-### 1. 安装Node.js
-
-请访问 [Node.js官网](https://nodejs.org/) 下载并安装最新的LTS版本。
-
-安装完成后，在命令行中验证安装：
-
-```bash
-node --version
-npm --version
-```
-
-### 2. 安装项目依赖
-
-在项目根目录下运行：
-
-```bash
-npm install
-```
-
-或使用yarn：
-
-```bash
-yarn install
-```
-
-### 3. 启动开发服务器
-
-```bash
-npm run dev
-```
-
-或使用yarn：
-
-```bash
-yarn dev
-```
-
-开发服务器将在 http://localhost:3000 启动。
-
-### 4. 构建生产版本
-
-```bash
-npm run build
-```
-
-构建文件将输出到 `dist` 目录。
-
-### 5. 预览生产版本
-
-```bash
-npm run preview
-```
-
-## 项目结构
+## 📁 项目结构
 
 ```
-舟山天骏石油化工有限公司/
-├── public/                 # 静态资源
+zssy/
 ├── src/
 │   ├── components/         # 可复用组件
 │   │   ├── Common/        # 通用组件
 │   │   └── Layout/        # 布局组件
 │   ├── pages/             # 页面组件
-│   ├── styles/            # 样式文件
+│   ├── services/          # API 服务
+│   ├── hooks/             # 自定义 Hooks
 │   ├── utils/             # 工具函数
-│   ├── App.jsx           # 主应用组件
-│   ├── main.jsx          # 应用入口
-│   └── index.css         # 全局样式
-├── index.html             # HTML模板
-├── package.json           # 项目配置
-├── vite.config.js        # Vite配置
-└── README.md             # 项目说明
+│   ├── store/             # 状态管理
+│   └── styles/            # 样式文件
+├── server.js              # API 模拟服务器
+├── db.json               # 模拟数据库
+├── routes.json           # API 路由配置
+└── package.json          # 项目配置
 ```
 
-## 开发指南
+## 🛠️ 技术栈
 
-### 添加新页面
+### 前端框架
+- **React 18**: 最新的 React 版本，支持并发特性
+- **Vite**: 快速的构建工具和开发服务器
+- **React Router DOM**: 单页应用路由管理
 
-1. 在 `src/pages/` 目录下创建新的页面组件
-2. 在 `src/App.jsx` 中添加路由配置
-3. 在导航组件中添加菜单项
+### UI 组件库
+- **Ant Design 5.12.0**: 企业级 UI 设计语言和 React 组件库
+- **Styled Components**: CSS-in-JS 样式解决方案
+- **Framer Motion**: 强大的动画库
+
+### 数据可视化
+- **ECharts 5.6.0**: 强大的图表库
+- **echarts-for-react**: ECharts 的 React 封装
+
+### 开发工具
+- **ESLint**: 代码质量检查
+- **JSON Server**: API 模拟服务
+- **Concurrently**: 并行运行多个命令
+
+## 🚀 快速开始
+
+### 环境要求
+
+- Node.js >= 16.0.0
+- npm >= 8.0.0 或 yarn >= 1.22.0
+
+### 安装依赖
+
+```bash
+npm install
+```
+
+### 启动开发服务器
+
+```bash
+# 同时启动前端和后端服务
+npm run dev:full
+
+# 或分别启动
+npm run dev      # 前端服务 (http://localhost:5173)
+npm run server   # 后端服务 (http://localhost:3001)
+```
+
+### 构建生产版本
+
+```bash
+npm run build
+```
+
+### 预览生产版本
+
+```bash
+npm run preview
+```
+
+## 📊 API 接口
+
+项目集成了完整的 RESTful API 接口，包括：
+
+- **首页接口**: 轮播图、服务介绍、客户证言、最新动态
+- **关于我们**: 企业信息、发展历程、核心价值观、管理团队
+- **产品服务**: 产品列表、服务详情、价格信息、技术咨询
+- **新闻中心**: 新闻列表、详情页、分享统计、Newsletter 订阅
+- **安全合规**: 安全政策、认证证书、文档下载
+- **招聘信息**: 职位列表、企业福利、简历投递
+- **联系我们**: 联系信息、留言提交、服务区域
+
+## 🎨 页面功能
+
+### 首页 (Home)
+- Hero 轮播展示
+- 实时价格显示
+- 快速询价模态框
+- 订单追踪功能
+- 服务介绍卡片
+- 客户证言展示
+- 最新动态预览
+
+### 关于我们 (About)
+- 企业发展时间线
+- 核心价值观展示
+- 车队储存信息
+- 管理团队介绍
+- 团队成员详情模态框
+
+### 新闻中心 (News)
+- 新闻分类筛选
+- 实时搜索功能
+- 新闻分享统计
+- Newsletter 订阅
+- 响应式新闻卡片
+
+### 安全合规 (Safety)
+- 资质认证展示
+- 安全统计数据
+- 政策文档下载
+- 文档预览功能
+
+## 🔧 开发规范
+
+### 代码规范
+- 使用 ESLint 进行代码质量检查
+- 遵循 React Hooks 最佳实践
+- 组件化开发，提高代码复用性
+
+### API 规范
+- 统一的响应格式
+- 错误处理机制
+- 智能回退策略
 
 ### 样式规范
+- 响应式设计原则
+- 统一的设计语言
+- 性能优化考虑
 
-- 使用Ant Design的主题系统
-- 响应式断点：xs(<576px), sm(≥576px), md(≥768px), lg(≥992px), xl(≥1200px), xxl(≥1600px)
-- 颜色主题：主色调#1890ff，辅助色根据企业VI调整
-
-### 组件开发
-
-- 优先使用Ant Design组件
-- 自定义组件放在 `src/components/` 目录
-- 使用Styled Components进行样式定制
-
-## 部署说明
-
-### 静态部署
-
-构建完成后，将 `dist` 目录的内容部署到静态文件服务器即可。
-
-### 服务器配置
-
-由于使用了前端路由，需要配置服务器将所有路由重定向到 `index.html`。
-
-**Nginx配置示例：**
-
-```nginx
-location / {
-    try_files $uri $uri/ /index.html;
-}
-```
-
-**Apache配置示例：**
-
-```apache
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.html [L]
-```
-
-## 浏览器支持
+## 📱 浏览器支持
 
 - Chrome >= 87
 - Firefox >= 78
 - Safari >= 14
 - Edge >= 88
 
-## 许可证
+## 🤝 贡献指南
 
-本项目仅供舟山天骏石油化工有限公司内部使用。
+1. Fork 项目
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启 Pull Request
 
-## 联系方式
+## 📄 许可证
 
-如有技术问题，请联系开发团队。
+该项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
+
+## 📞 联系方式
+
+- 项目地址: [GitHub Repository](https://github.com/yourusername/zssy)
+- 问题反馈: [Issues](https://github.com/yourusername/zssy/issues)
+
+---
+
+© 2024 舟山天骏石油化工有限公司. 保留所有权利.

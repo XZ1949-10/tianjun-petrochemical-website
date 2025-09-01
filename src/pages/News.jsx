@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Row, Col, Card, Input, Select, Tag, Pagination, Button } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Row, Col, Card, Input, Select, Tag, Pagination, Button, App } from 'antd'
 import { 
   SearchOutlined,
   CalendarOutlined,
@@ -8,11 +8,14 @@ import {
   FilterOutlined,
   ArrowRightOutlined
 } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
+// API集成导入
+import { useAPI } from '../hooks/useAPI'
+import api from '../services/api'
 
 const { Search } = Input
 const { Option } = Select
@@ -410,11 +413,44 @@ const StyledNews = styled.div`
 `
 
 const News = () => {
+  const { message } = App.useApp()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
+  const [newsListLoading, setNewsListLoading] = useState(false)
+  const [subscriptionEmail, setSubscriptionEmail] = useState('')
   const { ref: heroRef, inView: heroInView } = useInView({ threshold: 0.1 })
   const { ref: newsRef, inView: newsInView } = useInView({ threshold: 0.1 })
+  const navigate = useNavigate()
+
+  // API数据获取 - 保持向后兼容的回退机制
+  const { data: apiNewsData, loading: newsLoading } = useAPI(api.news.getNewsList, { 
+    immediate: true,
+    params: { page: currentPage, category: selectedCategory, search: searchTerm }
+  })
+
+  // 防抖动搜索
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchTerm) {
+        setNewsListLoading(true)
+        // 重新加载数据
+        api.news.getNewsList({ search: searchTerm, category: selectedCategory, page: 1 })
+          .then(() => setCurrentPage(1))
+          .finally(() => setNewsListLoading(false))
+      }
+    }, 500)
+    
+    return () => clearTimeout(timer)
+  }, [searchTerm])
+
+  // 分类变化时重新加载
+  useEffect(() => {
+    setCurrentPage(1)
+    setNewsListLoading(true)
+    api.news.getNewsList({ category: selectedCategory, search: searchTerm, page: 1 })
+      .finally(() => setNewsListLoading(false))
+  }, [selectedCategory])
 
   const categories = [
     { value: 'all', label: '全部分类' },
@@ -425,7 +461,8 @@ const News = () => {
     { value: 'achievement', label: '企业荣誉' }
   ]
 
-  const newsArticles = [
+  // 智能回退机制：优先使用API数据，如果没有则使用静态数据
+  const newsArticles = apiNewsData?.articles || [
     {
       id: 1,
       title: '天骏石化与多家大型物流企业签署年度供油协议',
@@ -499,16 +536,58 @@ const News = () => {
   const featuredArticle = newsArticles.find(article => article.featured)
   const regularNews = filteredNews.filter(article => !article.featured)
 
-  const handleShare = (article) => {
-    if (navigator.share) {
-      navigator.share({
-        title: article.title,
-        text: article.excerpt,
-        url: window.location.origin + `/news/${article.id}`
-      })
-    } else {
-      // 备用分享方案
-      navigator.clipboard.writeText(window.location.origin + `/news/${article.id}`)
+  // 事件处理函数
+  const handleShare = async (article) => {
+    try {
+      // 记录分享统计
+      await api.news.recordShare(article.id)
+      
+      if (navigator.share) {
+        await navigator.share({
+          title: article.title,
+          text: article.excerpt,
+          url: window.location.origin + `/news/${article.id}`
+        })
+      } else {
+        // 备用分享方案
+        await navigator.clipboard.writeText(window.location.origin + `/news/${article.id}`)
+        message.success('链接已复制到剪切板')
+      }
+    } catch (error) {
+      console.error('分享失败:', error)
+      message.error('分享失败，请稍后重试')
+    }
+  }
+
+  const handleNewsClick = async (article) => {
+    try {
+      // 记录阅读统计
+      await api.news.recordView(article.id)
+      navigate(`/news/${article.id}`)
+    } catch (error) {
+      // 即使统计失败，也要允许用户查看文章
+      navigate(`/news/${article.id}`)
+    }
+  }
+
+  const handleSubscribeNewsletter = async () => {
+    if (!subscriptionEmail) {
+      message.warning('请输入邮箱地址')
+      return
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(subscriptionEmail)) {
+      message.error('请输入正确的邮箱地址')
+      return
+    }
+    
+    try {
+      await api.news.subscribeNewsletter({ email: subscriptionEmail })
+      message.success('订阅成功！您将定期收到我们的行业动态。')
+      setSubscriptionEmail('')
+    } catch (error) {
+      message.error('订阅失败，请稍后重试')
     }
   }
 
@@ -638,9 +717,9 @@ const News = () => {
                       </div>
                     </div>
                     <div className="news-content">
-                      <Link to={`/news/${article.id}`}>
+                      <div onClick={() => handleNewsClick(article)} style={{ cursor: 'pointer' }}>
                         <h3 className="news-title">{article.title}</h3>
-                      </Link>
+                      </div>
                       <p className="news-excerpt">{article.excerpt}</p>
                       <div className="news-meta">
                         <div className="meta-left">
@@ -653,16 +732,19 @@ const News = () => {
                           <button 
                             className="action-btn"
                             onClick={() => handleShare(article)}
+                            title="分享文章"
                           >
                             <ShareAltOutlined />
                           </button>
-                          <Link to={`/news/${article.id}`}>
-                            <button className="action-btn">
-                              <span style={{ display: 'flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' }}>
-                                阅读全文 <ArrowRightOutlined />
-                              </span>
-                            </button>
-                          </Link>
+                          <button 
+                            className="action-btn"
+                            onClick={() => handleNewsClick(article)}
+                            title="阅读全文"
+                          >
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' }}>
+                              阅读全文 <ArrowRightOutlined />
+                            </span>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -698,11 +780,16 @@ const News = () => {
             <Input 
               placeholder="请输入您的邮箱地址"
               size="large"
+              value={subscriptionEmail}
+              onChange={(e) => setSubscriptionEmail(e.target.value)}
+              onPressEnter={handleSubscribeNewsletter}
             />
             <Button 
               type="primary" 
               className="btn-warning" 
               size="large"
+              onClick={handleSubscribeNewsletter}
+              loading={newsLoading}
             >
               订阅
             </Button>

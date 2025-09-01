@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Layout, Spin } from 'antd'
+import { Layout, Spin, App as AntdApp } from 'antd'
 import { motion } from 'framer-motion'
 import Header from './components/Layout/Header'
 import Footer from './components/Layout/Footer'
@@ -50,67 +50,69 @@ const LoadingSpinner = () => (
 
 function App() {
   return (
-    <Layout className="min-h-screen">
-      <Header />
-      <Content className="flex-1">
-        <ScrollToTop />
-        <Suspense fallback={<LoadingSpinner />}>
-          <Routes>
-            <Route path="/" element={
-              <PageTransition>
-                <Home />
-              </PageTransition>
-            } />
-            <Route path="/about" element={
-              <PageTransition>
-                <About />
-              </PageTransition>
-            } />
-            <Route path="/products" element={
-              <PageTransition>
-                <Products />
-              </PageTransition>
-            } />
-            <Route path="/products/:id" element={
-              <PageTransition>
-                <ProductDetail />
-              </PageTransition>
-            } />
-            <Route path="/safety" element={
-              <PageTransition>
-                <Safety />
-              </PageTransition>
-            } />
-            <Route path="/news" element={
-              <PageTransition>
-                <News />
-              </PageTransition>
-            } />
-            <Route path="/news/:id" element={
-              <PageTransition>
-                <NewsDetail />
-              </PageTransition>
-            } />
-            <Route path="/careers" element={
-              <PageTransition>
-                <Careers />
-              </PageTransition>
-            } />
-            <Route path="/contact" element={
-              <PageTransition>
-                <Contact />
-              </PageTransition>
-            } />
-            <Route path="*" element={
-              <PageTransition>
-                <NotFound />
-              </PageTransition>
-            } />
-          </Routes>
-        </Suspense>
-      </Content>
-      <Footer />
-    </Layout>
+    <AntdApp>
+      <Layout className="min-h-screen">
+        <Header />
+        <Content className="flex-1">
+          <ScrollToTop />
+          <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
+              <Route path="/" element={
+                <PageTransition>
+                  <Home />
+                </PageTransition>
+              } />
+              <Route path="/about" element={
+                <PageTransition>
+                  <About />
+                </PageTransition>
+              } />
+              <Route path="/products" element={
+                <PageTransition>
+                  <Products />
+                </PageTransition>
+              } />
+              <Route path="/products/:id" element={
+                <PageTransition>
+                  <ProductDetail />
+                </PageTransition>
+              } />
+              <Route path="/safety" element={
+                <PageTransition>
+                  <Safety />
+                </PageTransition>
+              } />
+              <Route path="/news" element={
+                <PageTransition>
+                  <News />
+                </PageTransition>
+              } />
+              <Route path="/news/:id" element={
+                <PageTransition>
+                  <NewsDetail />
+                </PageTransition>
+              } />
+              <Route path="/careers" element={
+                <PageTransition>
+                  <Careers />
+                </PageTransition>
+              } />
+              <Route path="/contact" element={
+                <PageTransition>
+                  <Contact />
+                </PageTransition>
+              } />
+              <Route path="*" element={
+                <PageTransition>
+                  <NotFound />
+                </PageTransition>
+              } />
+            </Routes>
+          </Suspense>
+        </Content>
+        <Footer />
+      </Layout>
+    </AntdApp>
   )
 }
 

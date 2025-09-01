@@ -1,0 +1,87 @@
+{
+  "_comment": "这个文件是json-server的路由映射配置，但由于我们在server.js中使用了自定义路由，此文件主要用于文档记录目的",
+  "_note": "实际的API路由都在server.js中定义，总计46个接口（35个GET + 11个POST）",
+  "_status": "已实现的API接口清单",
+  
+  "首页相关API": {
+    "/api/home/banners": "获取轮播图数据",
+    "/api/home/company-stats": "获取企业实力数据", 
+    "/api/home/services": "获取服务介绍数据",
+    "/api/home/network-map": "获取服务网络数据",
+    "/api/home/testimonials": "获取客户证言",
+    "/api/home/latest-news": "获取最新动态",
+    "/api/home/fuel-price": "获取燃油价格",
+    "/api/home/quick-quote": "立即询价接口 [POST]",
+    "/api/orders/:orderId/tracking": "订单追踪接口",
+    "/api/system/language": "语言切换接口 [POST]"
+  },
+  
+  "关于我们API": {
+    "/api/about/company-info": "获取公司信息",
+    "/api/about/core-values": "获取核心价值观",
+    "/api/about/fleet-storage": "获取车队与储存信息", 
+    "/api/about/leadership-team": "获取管理团队"
+  },
+  
+  "产品服务API": {
+    "/api/products": "获取产品列表",
+    "/api/products/categories": "获取产品分类",
+    "/api/products/services": "获取服务模块",
+    "/api/products/pricing": "获取价格信息",
+    "/api/products/downloads": "获取下载文件列表",
+    "/api/products/:id": "获取产品详情",
+    "/api/products/quote-request": "产品询价接口 [POST]",
+    "/api/products/technical-inquiry": "技术咨询接口 [POST]",
+    "/api/products/additive-inquiry": "添加剂咨询接口 [POST]",
+    "/api/products/bulk-quote": "批量报价接口 [POST]"
+  },
+  
+  "安全合规API": {
+    "/api/safety/policies": "获取安全政策",
+    "/api/safety/certifications": "获取认证证书",
+    "/api/safety/equipment": "获取安全设备"
+  },
+  
+  "新闻中心API": {
+    "/api/news": "获取新闻列表",
+    "/api/news/categories": "获取新闻分类",
+    "/api/news/:id": "获取新闻详情",
+    "/api/news/:id/share": "新闻分享统计 [POST]"
+  },
+  
+  "招聘信息API": {
+    "/api/careers/positions": "获取职位列表",
+    "/api/careers/benefits": "获取企业福利",
+    "/api/careers/culture": "获取企业文化",
+    "/api/careers/culture-video": "获取企业文化视频",
+    "/api/careers/applications": "提交简历申请 [POST]",
+    "/api/careers/internship-application": "实习生申请接口 [POST]"
+  },
+  
+  "联系我们API": {
+    "/api/contact/info": "获取联系信息",
+    "/api/contact/offices": "获取办公地点",
+    "/api/contact/service-areas": "获取服务区域",
+    "/api/contact/messages": "提交联系表单 [POST]"
+  },
+  
+  "系统管理API": {
+    "/api/system/config": "获取网站配置",
+    "/api/upload": "文件上传接口 [POST]",
+    "/api/analytics/track": "统计分析接口 [POST]"
+  },
+  
+  "实际路由映射（已弃用）": {
+    "注释": "以下是原始的json-server路由映射，现在已被server.js中的自定义路由覆盖",
+    "/api/home/banners": "/home/banners",
+    "/api/home/company-stats": "/home/company-stats",
+    "/api/home/services": "/home/services",
+    "/api/home/network-map": "/home/network-map",
+    "/api/home/testimonials": "/home/testimonials",
+    "/api/home/latest-news": "/home/latest-news",
+    "/api/products": "/products/data",
+    "/api/news": "/news/data",
+    "/api/about/company-info": "/about/company-info",
+    "/api/contact/info": "/contact/info"
+  }
+}

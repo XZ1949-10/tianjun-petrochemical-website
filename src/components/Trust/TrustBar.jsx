@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { CertificationsCard, PartnersCard, ServiceStatsCard } from './';
 import './TrustBar.css';
 
-const TrustBar = () => {
+const TrustBar = ({ data }) => {
   return (
     <section className="trust-bar">
       <div className="container">
@@ -20,17 +20,17 @@ const TrustBar = () => {
         <div className="trust-content">
           {/* 质量管理体系组件 - 左边 */}
           <div className="trust-card-wrapper">
-            <CertificationsCard delay={0.1} />
+            <CertificationsCard delay={0.1} data={data?.certifications} />
           </div>
           
           {/* 战略合作伙伴组件 - 中间 */}
           <div className="trust-card-wrapper">
-            <PartnersCard delay={0.2} />
+            <PartnersCard delay={0.2} data={data?.partners} />
           </div>
           
           {/* 服务表现组件 - 右边 */}
           <div className="trust-card-wrapper">
-            <ServiceStatsCard delay={0.3} />
+            <ServiceStatsCard delay={0.3} data={data?.serviceStats} />
           </div>
         </div>
       </div>

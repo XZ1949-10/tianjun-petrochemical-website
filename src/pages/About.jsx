@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react'
-import { Row, Col, Card, Button, Statistic, Avatar } from 'antd'
+import { Row, Col, Card, Button, Statistic, Avatar, Modal, message } from 'antd'
 import { 
   SafetyOutlined, 
   TrophyOutlined, 
@@ -12,11 +12,14 @@ import {
   PhoneOutlined,
   MailOutlined
 } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
+// API集成导入
+import { useAPI } from '../hooks/useAPI'
+import api from '../services/api'
 
 const StyledAbout = styled.div`
   .hero-section {
@@ -1437,6 +1440,15 @@ const About = () => {
   const { ref: fleetRef, inView: fleetInView } = useInView({ threshold: 0.1 })
   const { ref: leadershipRef, inView: leadershipInView } = useInView({ threshold: 0.1 })
   const [isReducedMotion, setIsReducedMotion] = useState(false)
+  const [selectedLeader, setSelectedLeader] = useState(null)
+  const [leaderModalVisible, setLeaderModalVisible] = useState(false)
+  const navigate = useNavigate()
+  
+  // API数据获取 - 保持向后兼容的回退机制
+  const { data: apiCompanyInfo } = useAPI(api.about.getCompanyInfo, { immediate: true })
+  const { data: apiCoreValues } = useAPI(api.about.getCoreValues, { immediate: true })
+  const { data: apiFleetStorage } = useAPI(api.about.getFleetStorage, { immediate: true })
+  const { data: apiLeadershipTeam } = useAPI(api.about.getLeadershipTeam, { immediate: true })
   
   // 检测用户是否偏好减少动画
   useEffect(() => {
@@ -1449,7 +1461,8 @@ const About = () => {
     return () => mediaQuery.removeEventListener('change', handleChange)
   }, [])
 
-  const milestones = [
+  // 智能回退机制：优先使用API数据，如果没有则使用静态数据
+  const milestones = apiCompanyInfo?.milestones || [
     {
       year: '1990',
       title: '公司成立',
@@ -1487,7 +1500,7 @@ const About = () => {
     }
   ]
 
-  const values = [
+  const values = apiCoreValues || [
     {
       icon: <SafetyOutlined className="safety" />,
       title: '安全第一',
@@ -1520,7 +1533,7 @@ const About = () => {
     }
   ]
 
-  const leadership = [
+  const leadership = apiLeadershipTeam || [
     {
       name: '张董事长',
       title: '董事长兼总经理',
@@ -1546,6 +1559,16 @@ const About = () => {
       email: 'ops@tianjun-petro.com'
     }
   ]
+
+  // 事件处理函数
+  const handleLeaderClick = (leader) => {
+    setSelectedLeader(leader)
+    setLeaderModalVisible(true)
+  }
+
+  const handleContactUs = () => {
+    navigate('/contact')
+  }
 
   return (
     <StyledAbout>
@@ -1836,6 +1859,8 @@ const About = () => {
                   scale: 1.05,
                   transition: { duration: 0.3 }
                 }}
+                onClick={() => handleLeaderClick(leader)}
+                style={{ cursor: 'pointer' }}
               >
                 <div className="card-glow-effect"></div>
                 <div className="leader-avatar-wrapper">
@@ -1885,16 +1910,98 @@ const About = () => {
               成为我们的合作伙伴，享受专业的燃油供应服务
             </p>
             <div className="cta-buttons">
-              <Button type="primary" size="large" className="btn-warning">
+              <Button type="primary" size="large" className="btn-warning" onClick={() => navigate('/contact')}>
                 立即询价
               </Button>
-              <Button size="large" className="btn-secondary" ghost>
-                <Link to="/contact">联系我们</Link>
+              <Button size="large" className="btn-secondary" ghost onClick={handleContactUs}>
+                联系我们
               </Button>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* 领导团队详情模态框 */}
+      <Modal
+        title="领导团队详情"
+        open={leaderModalVisible}
+        onCancel={() => setLeaderModalVisible(false)}
+        footer={[
+          <Button key="close" onClick={() => setLeaderModalVisible(false)}>
+            关闭
+          </Button>,
+          <Button key="contact" type="primary" onClick={() => {
+            setLeaderModalVisible(false)
+            navigate('/contact')
+          }}>
+            联系我们
+          </Button>
+        ]}
+        width={600}
+      >
+        {selectedLeader && (
+          <div style={{ padding: '16px 0' }}>
+            <Row gutter={[24, 24]}>
+              <Col xs={24} md={8} style={{ textAlign: 'center' }}>
+                <Avatar size={120} style={{ backgroundColor: '#1890ff', fontSize: '36px', marginBottom: '16px' }}>
+                  {selectedLeader.avatar}
+                </Avatar>
+                <div style={{ textAlign: 'center' }}>
+                  <h3 style={{ marginBottom: '8px', fontSize: '18px', fontWeight: 'bold' }}>
+                    {selectedLeader.name}
+                  </h3>
+                  <div style={{
+                    background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                    color: 'white',
+                    padding: '4px 12px',
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    display: 'inline-block'
+                  }}>
+                    {selectedLeader.title}
+                  </div>
+                </div>
+              </Col>
+              <Col xs={24} md={16}>
+                <div style={{ padding: '0 16px' }}>
+                  <h4 style={{ marginBottom: '12px', color: '#1890ff' }}>个人简介</h4>
+                  <p style={{ lineHeight: '1.6', marginBottom: '20px', color: '#666' }}>
+                    {selectedLeader.bio}
+                  </p>
+                  
+                  <h4 style={{ marginBottom: '12px', color: '#1890ff' }}>联系方式</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <PhoneOutlined style={{ color: '#52c41a' }} />
+                      <span>{selectedLeader.phone}</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <MailOutlined style={{ color: '#52c41a' }} />
+                      <span>{selectedLeader.email}</span>
+                    </div>
+                  </div>
+                  
+                  <div style={{
+                    marginTop: '20px',
+                    padding: '12px',
+                    background: '#f6f8fa',
+                    borderRadius: '8px',
+                    borderLeft: '4px solid #1890ff'
+                  }}>
+                    <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>专业领域</div>
+                    <div style={{ fontSize: '14px', fontWeight: '500' }}>
+                      {selectedLeader.title.includes('董事长') ? '企业管理 • 战略规划' : 
+                       selectedLeader.title.includes('总经理') ? '运营管理 • 团队建设' : 
+                       '物流管理 • 运营优化'}
+                    </div>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        )}
+      </Modal>
     </StyledAbout>
   )
 }
